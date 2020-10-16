@@ -6,11 +6,14 @@
 % higher probability of occlusion corresponds to slower
 % polymerization rate
 
-%% double
-%initialization
+%% initialization
 err = 0;
 
-m2 = dlmread('double_200.txt');
+path = '../../PolymerData/';
+m2 = dlmread(append(path,'double_200.txt'));
+m3 = dlmread(append(path,'dimer_122.txt'));
+
+%% double
 %POcc1(iN, isite)=[occlusion probability of the iNth N value at isite]
 NFil = 2;
 p_occ2a_all = [];
@@ -42,10 +45,7 @@ F2a = scatteredInterpolant(X2a(:,1),X2a(:,2),X2a(:,3),'linear','nearest');
 X2b = [length_vec2; iSite_vec2; p_occ2b_all]';
 F2b = scatteredInterpolant(X2b(:,1),X2b(:,2),X2b(:,3),'linear','nearest');
 
-%% dimer
-
-
-m3 = dlmread('dimer_122.txt');
+%% n-terminal dimerized
 
 NFil=2;
 p_occ3a_all = [];
@@ -76,6 +76,7 @@ F3b = scatteredInterpolant(X3b(:,1),X3b(:,2),X3b(:,3),'linear','nearest');
 
 %% scatter plots
 % graphs scatter plot of p_occlusion for all lengths and iSites
+% graphs comparison of p_occDouble - p_occDimer
 
 %double
 figure()
@@ -112,10 +113,15 @@ plot3(X_compa(:,1),X_compa(:,2),X_compa(:,3),'.','Color','b')
 hold on
 plot3(X_compb(:,1),X_compb(:,2),X_compb(:,3),'.','Color','r')
 hold off
-legend
+
+% X_compa has iSites where probability of occlusion is higher for double
+% than NTD, i.e. actin polymerization rate is faster for NTD
+% X_compb has iSites where p_occ is higher for NDT than double
+
+legend('dimer faster','double faster'); 
 xlabel('length')
 ylabel('iSite')
-zlabel('double-dimer')
+zlabel('p_occ double - dimer')
 
 
 

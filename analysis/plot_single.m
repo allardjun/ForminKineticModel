@@ -4,7 +4,9 @@
 %initialization
 
 clear all
-A=dlmread('single1_300.txt');
+
+path = '../../PolymerData/';
+A=dlmread(append(path,'single1_300.txt'));
 NFil=1;
 pOcc = [];
 N_Array = 1:300;
